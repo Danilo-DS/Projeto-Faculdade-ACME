@@ -10,7 +10,7 @@
 			
 			<div class="container" align="center">
 				<div class="col-md-8 order-md-1" >
-			        <form class="needs-validation" action="${pageContext.request.contextPath}/usuarioController" method = "POST" >
+			        <form class="needs-validation" action="${pageContext.request.contextPath}/acme" method = "POST" >
 			        
 			        <!-- Nome -->
 			        <div class="mb-3" align="left">
@@ -40,8 +40,8 @@
 					    	
 					    	<!-- Visitante -->
 					    	<div class="custom-control custom-radio">
-					      		<input type="radio" name="tipoUser" id="tUser" value="Visitante">
-					      		<label class="costom-control-label" for="visitante">Visistante</label>
+					      		<input type="radio" name="tipoUser" id="tUser" data-toggle="check" value="Visitante">
+					      		<label class="costom-control-label" for="visitante">Visitante</label>
 					    	</div>
 				        </div>
 			        </div>

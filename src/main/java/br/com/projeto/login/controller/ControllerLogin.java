@@ -38,22 +38,6 @@ public class ControllerLogin extends HttpServlet {
 		String login = request.getParameter("email");
 		String pass = request.getParameter("senha");
 		
-		/*
-		 * request.setAttribute("nome", login.replace("@gmail.com", "").replace("d",
-		 * "D"));
-		 * 
-		 * Usuario user = new Usuario(); user.setEmail("carlos@gmail.com");
-		 * user.setSenha("123");
-		 * 
-		 * if(login.compareTo(user.getEmail())== 0 && pass.compareTo(user.getSenha()) ==
-		 * 0) { HttpSession session = request.getSession(); session.setAttribute("user",
-		 * user);
-		 * 
-		 * RequestDispatcher rd = request.getRequestDispatcher(Constantes.HOME);
-		 * rd.forward(request, response); }else { request.setAttribute("mensagem",
-		 * "Email ou Senha Inválido"); RequestDispatcher rd =
-		 * request.getRequestDispatcher("login.jsp"); rd.forward(request, response); }
-		 */
 		Map<String, String> msg = new HashMap<String, String>();
 		
 		if ((login == null && pass == null) || (login.isEmpty() && pass.isEmpty()) ) {
@@ -81,6 +65,7 @@ public class ControllerLogin extends HttpServlet {
 						session.setAttribute("user", user);						 
 						
 						RequestDispatcher rd = request.getRequestDispatcher(Constantes.HOME);
+						request.setAttribute("user",user);
 						rd.forward(request, response);
 					}
 					else {

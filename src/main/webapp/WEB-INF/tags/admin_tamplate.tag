@@ -2,6 +2,7 @@
 <%@ attribute name="title" required="true" rtexprvalue="true"%>
 <%@ attribute name="breadcrumb" required="true" rtexprvalue="true"%>
 <%@ attribute name="content" fragment="true"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
@@ -23,7 +24,7 @@
 
 	<nav class="navbar navbar-expand navbar-dark bg-primary">
 		<a class="sidebar-toggle mr-3" href="#"><i class="fa fa-bars"></i></a>
-		<a class="navbar-brand" href="${pageContext.request.contextPath}/admin/dashboard/index.jsp">Projeto</a>
+		<a class="navbar-brand" href="${pageContext.request.contextPath}/acme?action=dashboard">Projeto</a>
 
 		<div class="navbar-collapse collapse">
 			<ul class="navbar-nav ml-auto">
@@ -47,39 +48,43 @@
 			<br/>
 			<ul class="list-unstyled">
 				<li>
-					<a href="${pageContext.request.contextPath}/admin/empresas/empresas.jsp">
-						<img src="${pageContext.request.contextPath}/admin/Images/empresa.png" width="30px" style="margin-bottom: 10px"/> Empresa
+					<a href="${pageContext.request.contextPath}/acme?action=empresas">
+						<img src="${pageContext.request.contextPath}/assets/Images/empresa.png" width="30px" style="margin-bottom: 10px"/> Empresa
 					</a>
 				</li>
 				<li>
-					<a href="${pageContext.request.contextPath}/admin/funcionarios/funcionarios.jsp">
-						<img src="${pageContext.request.contextPath}/admin/Images/funcionario.png" width="30px" style="margin-bottom: 10px"/> Funcionários
+					<a href="${pageContext.request.contextPath}/acme?action=funcionarios">
+						<img src="${pageContext.request.contextPath}/assets/Images/funcionario.png" width="30px" style="margin-bottom: 10px"/> Funcionários
 					</a>
 				</li>
 				<li>
-					<a href="${pageContext.request.contextPath}/admin/dependentes/dependentes.jsp">
-						<img src="${pageContext.request.contextPath}/admin/Images/dependente.png" width="30px" style="margin-bottom: 8px"/> Dependentes
+					<a href="${pageContext.request.contextPath}/acme?action=dependentes">
+						<img src="${pageContext.request.contextPath}/assets/Images/dependente.png" width="30px" style="margin-bottom: 8px"/> Dependentes
 					</a>
 				</li>
 				<li>
-					<a href="${pageContext.request.contextPath}/admin/departamentos/departamentos.jsp">
-						<img src="${pageContext.request.contextPath}/admin/Images/departamento.png" width="30px" style="margin-bottom: 10px"/> Departamentos
+					<a href="${pageContext.request.contextPath}/acme?action=departamentos">
+						<img src="${pageContext.request.contextPath}/assets/Images/departamento.png" width="30px" style="margin-bottom: 10px"/> Departamentos
 					</a>
 				</li>
 				<li>
-					<a href="${pageContext.request.contextPath}/admin/cargos/cargos.jsp">
-						<img src="${pageContext.request.contextPath}/admin/Images/cargos.png" width="30px" style="margin-bottom: 10px"/> Cargos
+					<a href="${pageContext.request.contextPath}/acme?action=cargos">
+						<img src="${pageContext.request.contextPath}/assets/Images/cargos.png" width="30px" style="margin-bottom: 10px"/> Cargos
 					</a>
 				</li>
 				<li>
-					<a href="${pageContext.request.contextPath}/usuarioController?action=lista"> <!-- onclick="Listar()" -->
-						<img src="${pageContext.request.contextPath}/admin/Images/usuario.png" width="30px" style="margin-bottom: 10px"/> Usuários
-					</a>
+					<c:if test="${user.tipouser != 'Visitante'}">
+						<a href="${pageContext.request.contextPath}/acme?action=usuarios"> <!-- onclick="Listar()" -->
+							<img src="${pageContext.request.contextPath}/assets/Images/usuario.png" width="30px" style="margin-bottom: 10px"/> Usuários
+						</a>
+					</c:if>
 				</li>
 				<li>
-					<a href = "${pageContext.request.contextPath}/admin/permissao/permissao.jsp">
-						<img src="${pageContext.request.contextPath}/admin/Images/permissao.png" width="30px" style="margin-bottom: 10px"/> Permissão
-					</a>
+					<c:if test="${user.tipouser != 'Visitante'}">
+						<a href = "${pageContext.request.contextPath}/acme?action=permissoes">
+							<img src="${pageContext.request.contextPath}/assets/Images/permissao.png" width="30px" style="margin-bottom: 10px"/> Permissão
+						</a>
+					</c:if>
 				</li>
 			</ul>
 		</div>
@@ -88,7 +93,7 @@
 			<nav aria-label="breadcrumb">
 			  <ol class="breadcrumb">
 			    <li class="breadcrumb-item">
-			    	<a href="${pageContext.request.contextPath}/admin/dashboard/index.jsp">Home</a>
+			    	<a href="${pageContext.request.contextPath}/acme?action=dashboard">Home</a>
 			    </li>
 			    <li class="breadcrumb-item active" aria-current="page">${breadcrumb}</li>
 			  </ol>

@@ -52,7 +52,7 @@
 	     <br/>
 	      <!-- Listar -->
 	      <div align="center">
-			  <a href="${pageContext.request.contextPath}/admin/empresas/add_empresas.jsp" class="btn btn-info btn-sm" type="submit">Novo</a>
+			  <a href="${pageContext.request.contextPath}/acme?action=addEmpresa" class="btn btn-info btn-sm" type="submit">Novo</a>
 	      </div>
      
      </section>

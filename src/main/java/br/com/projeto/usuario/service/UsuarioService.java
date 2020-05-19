@@ -28,11 +28,10 @@ public class UsuarioService {
 	}
 	
 	public void update(Usuario user) throws Exception {
-		
 		this.uDao.update(user);
 	}
 	
 	public Usuario active(Long id) throws Exception {
-		return this.active(id);
+		return this.uDao.active(id);
 	}
 }

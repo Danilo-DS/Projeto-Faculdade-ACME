@@ -12,9 +12,18 @@ public class Constantes {
 	public static final String ACTION = "action";
 	public static final String NOVO = "novo";
 	public static final String DELETE = "delete";
-	public static final String EDITAR = "editar";
+	public static final String CADASTRAR_EDITAR = "cadastar/editar";
 	public static final String LISTAR = "lista";
 	public static final String ATIVAR_DESATIVAR = "ativar_desativar";
+	public static final String CARGOS_URL = "cargos";
+	public static final String DASHBOARD_URL = "dashboard";
+	public static final String DEPARTAMENTO_URL = "departamentos";
+	public static final String DEPENDENTES_URL = "dependentes";
+	public static final String EMPRESAS_URL = "empresas";
+	public static final String FUNCIONARIO_URL = "funcionarios";
+	public static final String PERMISSAO_URL = "permissoes";
+	public static final String USUARIO_URL = "usuarios";
+	public static final String ADDEMPRESA = "addEmpresa";
 
 	// VALIDAÇÃO DE INPUTS
 	public static final String INFORME_LOGIN = "Informe o Email";
@@ -23,8 +32,8 @@ public class Constantes {
 	public static final String LOGIN_OU_SENHA_INVALIDO = "Email ou Senha incorreto";
 
 	// MENSAGENS DA TELA USUARIO
-	public static final String USUARIO_ESTA_DESATIVADO = "Usuário Desativado";
-	public static final String USUARIO_ESTA_ATIVADO = "Usuário Ativo";
+	public static final String USUARIO_ESTA_DESATIVADO = "Usuário(a) Desativado(a)";
+	public static final String USUARIO_ESTA_ATIVADO = "Usuário(a) Ativado(a)";
 
 	// MENSAGENS DA TELA CONTATO
 	public static final String CONTATO = "contato";
@@ -54,6 +63,19 @@ public class Constantes {
 
 	public static final String LOGIN = "/login.jsp";
 	public static final String HOME = "/admin/dashboard/index.jsp";
+	
+	public static final String CARGOS = "/admin/cargos/cargos.jsp";
+	public static final String DEPARTAMENTO = "/admin/departamentos/departamentos.jsp";
+	public static final String DEPENDENTES = "/admin/dependentes/dependentes.jsp";
+	public static final String EMPRESAS = "/admin/empresas/empresas.jsp";
+	public static final String ADD_EMPRESAS = "/admin/empresas/add_empresas.jsp";
+	public static final String FUNCIONARIO = "/admin/funcionarios/funcionarios.jsp";
+	public static final String PERMISSAO = "/admin/permissao/permissao.jsp";
+	public static final String UCLISTAR = "/usuarioController?action=lista";
+	public static final String UCATIVAR = "/usuarioController?action=ativar_desativar";
+	public static final String UCDELETAR = "/usuarioController?action=delete";
+	public static final String FACEDELISTAR = "/acme?action=usuarios";
+	public static final String FACEDEHOME = "/acme?action=dashboard";
 
 	// LOGOUT
 	public static final String OBRIGADO = " Obrigado, até logo!";

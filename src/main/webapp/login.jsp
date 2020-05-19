@@ -12,10 +12,6 @@
     <meta name="generator" content="Jekyll v3.8.6">
     <title>Login</title>
 	
-	 <!--Script alert-->
-  	<script src="${pageContext.request.contextPath}/assets/admin/js/sweetalert2.all.js"></script>
-  	<script src="${pageContext.request.contextPath}/assets/admin/jqueryalert.min.js"></script>
-	
 	 <!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/admin/css/bootstrap.min.css"/>
 	<meta name="theme-color" content="#563d7c">
@@ -42,7 +38,6 @@
   </head>
   
   <body class="text-center">	
- <%--  <%HashMap erro = (HashMap) request.getAttribute("mensagem");%> --%>			
  
     <form class="form-signin" action="${pageContext.request.contextPath}/controllerLogin" method="POST">
 		  <h1 class="h3 mb-3 font-weight-normal">Login</h1>
@@ -100,7 +95,25 @@
 	</form>
 </body>
 
-<!-- <script>
+<!--Script alert-->
+  	<script src="${pageContext.request.contextPath}/assets/admin/js/sweetalert2.all.js"></script>
+  	<script src="${pageContext.request.contextPath}/assets/admin/js/jqueryalert.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/admin/js/jquery.min.js"></script>	
+
+<script>
+	<!--AutoClose Alert-->
+	/* Essa função escuta o DOM, procurando a chamada
+	de algum alert quando a chamada acontece ele faz o auto-close
+	em alguns segundos. */
+	$(document).ready(function () {
+		window.setTimeout(function() {
+		    $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
+		        $(this).remove(); 
+		    });
+		}, 1500);
+		 
+		});
+	/* 
 	let login = document.querySelector("#email");
 	let pass = document.querySelector("#senha");
 	
@@ -120,8 +133,8 @@
 	
 	function fail(){
 	      swal ( "Ops!" ,  "Email ou Senha Inválida" ,  "error" );
-	 };
-</script> -->
+	 }; */
+</script>
 
 </html>
 

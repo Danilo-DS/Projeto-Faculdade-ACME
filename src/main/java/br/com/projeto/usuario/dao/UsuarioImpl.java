@@ -59,7 +59,6 @@ public class UsuarioImpl implements Usuarios {
 	@Override
 	public void update(Usuario user) throws Exception {
 		this.em = conecter.createEntityManager();
-		
 		try {
 			this.em.getTransaction().begin();
 			this.em.merge(user);
@@ -102,14 +101,8 @@ public class UsuarioImpl implements Usuarios {
 		this.em = conecter.createEntityManager();
 		try {
 			this.em.getTransaction().begin();
-			if (user.getId() == null) {
-				user.setAtivo(1);
-				em.persist(user);
-			}
-			else {
-				em.merge(user);
-			}
-			em.getTransaction().commit();
+			this.em.persist(user);
+			this.em.getTransaction().commit();
 		}
 		catch (Exception e) {
 			e.getMessage();
@@ -144,16 +137,28 @@ public class UsuarioImpl implements Usuarios {
 	}
 
 	@Override
-	public Usuario active(Long ID) throws Exception {
-		Usuario user = this.findById(ID);
-		if(user.getAtivo() != 1) {
-			user.setAtivo(1);
+	public Usuario active(Long id) throws Exception {
+		em = conecter.createEntityManager();
+		Usuario user = new Usuario();
+		try {
+			 user = em.find(Usuario.class, id); System.out.println(user.getNome() +
+			 user.getAtivo());
+			if(user.getAtivo() != 1) {
+				user.setAtivo(1);
+				this.update(user);
+			}
+			else {
+				user.setAtivo(0);
+				this.update(user);
+			}
 		}
-		else {
-			user.setAtivo(0);
+		catch (Exception e) {
+			e.getMessage();
+			em.getTransaction().rollback();
 		}
-		this.save(user);
-		
+		finally {
+			em.close();
+		}
 		return user;
 	}
 }

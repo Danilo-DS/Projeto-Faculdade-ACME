@@ -34,19 +34,16 @@ public class UsuarioController extends HttpServlet {
 	
 		try {
 			switch(action){
-				case Constantes.NOVO:
-					Novo(request, response);
-					break;
-				case Constantes.EDITAR:
-					Editar(request, response);
+				case Constantes.CADASTRAR_EDITAR:
+					doPost(request, response);
 					break;
 				case Constantes.DELETE:
-					Delete(request, response);
+					delete(request, response);
 					break;
 				case Constantes.LISTAR:
-					Listar(request, response);
+					listar(request, response);
 				case Constantes.ATIVAR_DESATIVAR:
-					Ativar(request, response);				
+					ativar(request, response);				
 					break;
 			}
 		}
@@ -56,8 +53,7 @@ public class UsuarioController extends HttpServlet {
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Entrei no dopost");
-		
+
 		String nome = request.getParameter(Constantes.NOME_USUAIRO);
 		String email = request.getParameter(Constantes.EMAIL_USUARIO);
 		String departamento = request.getParameter(Constantes.DP_USUARIO);
@@ -76,93 +72,60 @@ public class UsuarioController extends HttpServlet {
 			this.user.setTipouser(Constantes.USUARIO_COMUM);
 		}
 		
-		if (tipoUser.equalsIgnoreCase(Constantes.VISITANTE) && departamento.equalsIgnoreCase("Selecione seu Departamento")) {
+		if (tipoUser.equalsIgnoreCase(Constantes.VISITANTE)){
 			this.user.setDepartamento(null);
-		}else {
+		}
+		else {
 			this.user.setDepartamento(departamento);
 		}
 		
-		//this.user.setAtivo(1);
 		this.user.setNome(nome);
 		this.user.setEmail(email);
-		this.user.setSenha(senha);		
-		
-		if(id !=null ) {
-			this.user.setId(Long.parseLong(id));
-			request.setAttribute("editado", Constantes.USUARIO + " " + nome + " " + Constantes.USUARIO_EDITADO);
-		}
-		else {
-			request.setAttribute("cadastro", Constantes.USUARIO + " " + nome + " " + Constantes.USUARIO_SUCESSO);
-		}
-		try {
-			this.service.save(user);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		request.getRequestDispatcher(Constantes.USUARIOS).forward(request, response);
-	}
-	
-	public void Novo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher(Constantes.ADD_USUARIOS).forward(request, response);
-	}
-	
-	public void Editar(HttpServletRequest request, HttpServletResponse response) throws NumberFormatException, Exception {
-		System.out.println("cheguei no editar");
-		String nome = request.getParameter(Constantes.NOME_USUAIRO_EDITADO);
-		String email = request.getParameter(Constantes.EMAIL_USUARIO_EDITADO);
-		String departamento = request.getParameter(Constantes.DP_USUARIO_EDITADO);
-		String tipoUser = request.getParameter(Constantes.TIPO_USUAIRO_EDITADO);
-		String senha = request.getParameter(Constantes.SENHA_USUARIO_EDITADO);
-		/*
-		 * if(tipoUser.equalsIgnoreCase(Constantes.ADMINISTRADOR)) {
-		 * this.user.setTipouser(Constantes.ADMINISTRADOR); } else
-		 * if(tipoUser.equalsIgnoreCase(Constantes.VISITANTE)){
-		 * this.user.setTipouser(Constantes.VISITANTE); } else {
-		 * this.user.setTipouser(Constantes.USUARIO_COMUM); }
-		 */
-		System.out.println(nome + email + departamento + tipoUser);
-		this.user.setId(Long.parseLong(request.getParameter(Constantes.ID_USUAIRO)));
-		this.user.setNome(nome);
-		this.user.setEmail(email);
-		this.user.setDepartamento(departamento);
-		this.user.setTipouser(tipoUser);
 		this.user.setSenha(senha);
-		//Usuario user = this.service.findByID(Long.parseLong(request.getParameter(Constantes.ID_USUAIRO)));
+		
 		try {
-			this.service.update(user);
+			if(id != null ) {
+				this.user.setId(Long.parseLong(id));
+				this.service.update(user);
+				request.setAttribute("editado", Constantes.USUARIO + " " + nome + " " + Constantes.USUARIO_EDITADO);
+			}
+			else {
+				this.service.save(user);
+				request.setAttribute("cadastro", Constantes.USUARIO + " " + nome + " " + Constantes.USUARIO_SUCESSO);
+			}
+			listar(request, response);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		//RequestDispatcher rd = request.getRequestDispatcher(Constantes.USUARIOS);
-		request.setAttribute("editado", Constantes.USUARIO + " " + nome + " " + Constantes.USUARIO_EDITADO);
-		response.sendRedirect("usuarioController?action=lista");
-		//rd.forward(request, response);
 		
-		//Listar(request, response);
 	}
-	
-	public void Delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+			
+	private void delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		this.service.deleteByID(Long.parseLong(request.getParameter(Constantes.ID_USUAIRO)));
-		System.out.println(Long.parseLong(request.getParameter(Constantes.ID_USUAIRO)));
-		RequestDispatcher rd = request.getRequestDispatcher(Constantes.USUARIOS);
+		//RequestDispatcher rd = request.getRequestDispatcher(Constantes.USUARIOS);
 		request.setAttribute("deletado", Constantes.USUARIO_REMOVIDO);
-		rd.forward(request, response);
+		request.getRequestDispatcher(Constantes.FACEDELISTAR).forward(request, response);
+		//rd.forward(request, response);
 	}
 	
-	private void Listar(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	private void listar(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		Collection<Usuario> userList = this.service.userList();
 		request.setAttribute("userList", userList);
 		RequestDispatcher rd = request.getRequestDispatcher(Constantes.USUARIOS);
 		rd.forward(request, response);
 	}
 	
-	private void Ativar(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	private void ativar(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		this.service.active(Long.parseLong(request.getParameter(Constantes.ID_USUAIRO)));
-		RequestDispatcher rd = request.getRequestDispatcher(Constantes.USUARIOS);
-		rd.forward(request, response);
+		user = this.service.findByID(Long.parseLong(request.getParameter(Constantes.ID_USUAIRO)));
+		if(user.getAtivo() == 1) {
+			request.setAttribute("ativado",user.getNome() + " " + Constantes.USUARIO_ESTA_ATIVADO);
+		}
+		else {
+			request.setAttribute("ativado",user.getNome() + " " + Constantes.USUARIO_ESTA_DESATIVADO);
+		}
+		listar(request, response);
 	}
 }
