@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @NamedQueries({@NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
-			   @NamedQuery(name= "Usuario.loginUsuario", query = "SELECT u FROM Usuario u WHERE u.email = :email AND u.senha = :senha")})
+			   @NamedQuery(name = "Usuario.loginUsuario", query = "SELECT u FROM Usuario u WHERE u.email = :email AND u.senha = :senha")})
 
 @Table(name = "usuario")
 @Entity

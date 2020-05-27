@@ -93,6 +93,16 @@
 	    	
 	    	</tbody>
 	    </table>
+	    <nav aria-label="Page navigation example" style="float: right">
+			  <ul class="pagination">
+			  <li class="page-item"><button class="page-link pagina" type="submit" value="1" >Início</button></li>
+			   <!-- <li class="page-item"><button class="page-link pagina" type="submit" value="2" >2</button></li> -->
+				<c:forEach var="pags" items="${TotalPags}">
+			    <li class="page-item"><button class="page-link pagina" type="submit" value="${pags+1}">${pags+1}</button></li>
+				</c:forEach>
+				<li class="page-item"><button class="page-link pagina" type="submit" value="${TotalPags.size()}">Última</button></li>
+			</ul>
+		</nav>   
     </section>
 	
 	<!-- Modal Visualizar -->
@@ -202,6 +212,7 @@
 	</jsp:attribute>
 
 </mt:admin_tamplate>
+<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/assets/myscripts/pagination.js"></script> --%>
 <script type="text/javascript">
 
 /*Mostra Tooltip personalizado*/
@@ -295,4 +306,18 @@
 	}
 
 /* Fim da Ação Editar */
+ 
+/* Função responsavel por escutar o dom e 
+passar o número da pagina como paramento para o back-end */
+function Paginacao(){
+	let pag = null;
+	$(document).ready(function(){
+		$('.page-item').click(function (event){
+			pag = $(event.target).val()
+			window.location.assign("${pageContext.request.contextPath}/acme?action=usuarios&pg="+pag);
+		})
+	})
+} 
+Paginacao()
+
 </script>

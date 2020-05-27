@@ -1,7 +1,9 @@
 package br.com.projeto.usuario.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -41,7 +43,9 @@ public class UsuarioController extends HttpServlet {
 					delete(request, response);
 					break;
 				case Constantes.LISTAR:
-					listar(request, response);
+					//listar(request, response);
+					numeroPaginas(request, response);
+					break;
 				case Constantes.ATIVAR_DESATIVAR:
 					ativar(request, response);				
 					break;
@@ -59,7 +63,7 @@ public class UsuarioController extends HttpServlet {
 		String departamento = request.getParameter(Constantes.DP_USUARIO);
 		String senha = request.getParameter(Constantes.SENHA_USUARIO);
 		String id = request.getParameter(Constantes.ID_USUAIRO);
-		
+		System.out.println("id" + id);
 		String tipoUser = request.getParameter(Constantes.TIPO_USUAIRO);
 		
 		if(tipoUser.equalsIgnoreCase(Constantes.ADMINISTRADOR)) {
@@ -93,7 +97,7 @@ public class UsuarioController extends HttpServlet {
 				this.service.save(user);
 				request.setAttribute("cadastro", Constantes.USUARIO + " " + nome + " " + Constantes.USUARIO_SUCESSO);
 			}
-			listar(request, response);
+			numeroPaginas(request, response);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -111,10 +115,43 @@ public class UsuarioController extends HttpServlet {
 	}
 	
 	private void listar(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		Collection<Usuario> userList = this.service.userList();
+		
+		//Limite de registro por pagina
+		//Calc utilizado 5 como limite de registro
+		//pg valor da pagina que está sendo solicitado
+		// (limite * pg) -  limite
+		String pagina = request.getParameter("pg");
+		int valorPag = 0;
+		if(pagina != null ) { 
+			valorPag = (Integer.parseInt(pagina) * 5) - 5;
+		}
+		
+		Collection<Usuario> userList = this.service.userList(valorPag);
 		request.setAttribute("userList", userList);
+		
 		RequestDispatcher rd = request.getRequestDispatcher(Constantes.USUARIOS);
 		rd.forward(request, response);
+	}
+	
+	public void numeroPaginas (HttpServletRequest request, HttpServletResponse response) throws Exception{
+		//Conta total de registro para saber o
+		//número de páginas
+		List<Integer> paginas = new ArrayList<Integer>();
+		double resultConsulta = this.service.TotalUsuarios();
+		int NumPags = 0;
+		if(resultConsulta % 5 == 0) {
+			NumPags = (int) resultConsulta / 5;
+		}
+		else {
+			NumPags = (int) Math.floor(resultConsulta / 5) + 1;
+		}
+		
+		for (int i = 0; i < NumPags; i++) {
+			paginas.add(i);
+		}
+		request.setAttribute("TotalPags",paginas);
+		
+		listar(request, response);
 	}
 	
 	private void ativar(HttpServletRequest request, HttpServletResponse response) throws Exception{

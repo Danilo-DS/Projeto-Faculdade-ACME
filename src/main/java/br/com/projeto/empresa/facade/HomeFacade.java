@@ -17,7 +17,6 @@ public class HomeFacade extends HttpServlet {
 	public HomeFacade() { }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("get da facade");
 		String action = request.getParameter(Constantes.ACTION);
 		
 		switch(action) {
@@ -106,7 +105,7 @@ public class HomeFacade extends HttpServlet {
 	}
 	
 	private void deletar (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher(Constantes.UCATIVAR);
+		RequestDispatcher rd = request.getRequestDispatcher(Constantes.UCDELETAR);
 		rd.forward(request, response);
 	}
 	

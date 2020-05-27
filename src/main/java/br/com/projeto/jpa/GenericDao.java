@@ -17,6 +17,8 @@ public interface GenericDao<T, ID extends Serializable> {
 	
 	public void update (T instance) throws Exception;
 	
-	public Collection<T> listAll() throws Exception;
+	public Collection<T> listAll(int pagina) throws Exception;
+	
+	public int TotalPagina() throws Exception;
 	
 }

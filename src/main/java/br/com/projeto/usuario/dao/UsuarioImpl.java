@@ -76,13 +76,13 @@ public class UsuarioImpl implements Usuarios {
 	}
 
 	@Override
-	public Collection<Usuario> listAll() throws Exception {
+	public Collection<Usuario> listAll(int pagina) throws Exception {
 		this.em = conecter.createEntityManager();
 		List<Usuario> userList = new ArrayList<Usuario>();
 		
 		try {
 			em.getTransaction().begin();
-			TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findAll", Usuario.class);
+			TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findAll", Usuario.class).setFirstResult(pagina).setMaxResults(5);
 			userList = query.getResultList();
 			em.getTransaction().commit();
 		}
@@ -94,6 +94,26 @@ public class UsuarioImpl implements Usuarios {
 			em.close();
 		}
 		return userList;
+	}
+	
+	public int TotalPagina() {
+		this.em = conecter.createEntityManager();
+		Object resultado;
+		int paginas = 0;
+		try {
+			Query query = this.em.createNativeQuery("select count(*) as qtdeRegistros from usuario");
+			resultado =  query.getSingleResult();
+			paginas = Integer.parseInt(resultado.toString());
+			return paginas;
+		}
+		catch (Exception e) {
+			e.getMessage();
+			this.em.getTransaction().rollback();
+		}
+		finally {
+			this.em.close();
+		}
+		return paginas;
 	}
 	
 	@Override

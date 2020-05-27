@@ -40,8 +40,8 @@ public class EmpresasImpl implements Empresas {
 	}
 
 	@Override
-	public Collection<Empresa> listAll() throws Exception {
-		// TODO Auto-generated method stub
+	public Collection<Empresa> listAll(int pagina) throws Exception {
+		// 
 		return null;
 	}
 
@@ -62,6 +62,11 @@ public class EmpresasImpl implements Empresas {
 		}finally{
 			this.factory.close();
 		}
+	}
+
+	@Override
+	public int TotalPagina() throws Exception {
+		return 0;
 	}
 
 }

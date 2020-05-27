@@ -11,8 +11,8 @@ public class UsuarioService {
 	public UsuarioService() {
 	}
 	
-	public Collection<Usuario> userList() throws Exception {	
-		return this.uDao.listAll();
+	public Collection<Usuario> userList(int pagina) throws Exception {	
+		return this.uDao.listAll(pagina);
 	}
 	
 	public void save(Usuario user) throws Exception {
@@ -33,5 +33,9 @@ public class UsuarioService {
 	
 	public Usuario active(Long id) throws Exception {
 		return this.uDao.active(id);
+	}
+	
+	public int TotalUsuarios() {
+		return this.uDao.TotalPagina();
 	}
 }
