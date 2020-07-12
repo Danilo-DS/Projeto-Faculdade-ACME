@@ -43,8 +43,8 @@ public class UsuarioController extends HttpServlet {
 					delete(request, response);
 					break;
 				case Constantes.LISTAR:
-					listar(request, response);
-					//numeroPaginas(request, response);
+					//listar(request, response);
+					numeroPaginas(request, response);
 					break;
 				case Constantes.ATIVAR_DESATIVAR:
 					ativar(request, response);				
@@ -130,7 +130,7 @@ public class UsuarioController extends HttpServlet {
 		request.setAttribute("userList", userList);
 		
 		RequestDispatcher rd = request.getRequestDispatcher(Constantes.USUARIOS);
-		numeroPaginas(request, response);
+		//numeroPaginas(request, response);
 		rd.forward(request, response);
 	}
 	
@@ -151,6 +151,7 @@ public class UsuarioController extends HttpServlet {
 			paginas.add(i);
 		}
 		request.setAttribute("TotalPags",paginas);
+		listar(request, response);
 	}
 	
 	private void ativar(HttpServletRequest request, HttpServletResponse response) throws Exception{

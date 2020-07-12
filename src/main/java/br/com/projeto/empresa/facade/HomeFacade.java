@@ -50,7 +50,7 @@ public class HomeFacade extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/usuarioController?action=cadastrar/editar");
+		RequestDispatcher rd = request.getRequestDispatcher(Constantes.UCCADASTRAR_EDITAR);
 		rd.forward(request, response); 
 	}
 			

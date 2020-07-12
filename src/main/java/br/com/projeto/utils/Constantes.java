@@ -12,7 +12,7 @@ public class Constantes {
 	public static final String ACTION = "action";
 	public static final String NOVO = "novo";
 	public static final String DELETE = "delete";
-	public static final String CADASTRAR_EDITAR = "cadastar/editar";
+	public static final String CADASTRAR_EDITAR = "cadastrar_editar";
 	public static final String LISTAR = "lista";
 	public static final String ATIVAR_DESATIVAR = "ativar_desativar";
 	public static final String CARGOS_URL = "cargos";
@@ -71,6 +71,7 @@ public class Constantes {
 	public static final String ADD_EMPRESAS = "/admin/empresas/add_empresas.jsp";
 	public static final String FUNCIONARIO = "/admin/funcionarios/funcionarios.jsp";
 	public static final String PERMISSAO = "/admin/permissao/permissao.jsp";
+	public static final String UCCADASTRAR_EDITAR = "/usuarioController?action=cadastrar_editar";
 	public static final String UCLISTAR = "/usuarioController?action=lista";
 	public static final String UCATIVAR = "/usuarioController?action=ativar_desativar";
 	public static final String UCDELETAR = "/usuarioController?action=delete";

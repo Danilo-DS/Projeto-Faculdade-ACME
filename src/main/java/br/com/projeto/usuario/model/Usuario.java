@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-@NamedQueries({@NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
+@NamedQueries({@NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u ORDER BY u.id"),
 			   @NamedQuery(name = "Usuario.loginUsuario", query = "SELECT u FROM Usuario u WHERE u.email = :email AND u.senha = :senha")})
 
 @Table(name = "usuario")
